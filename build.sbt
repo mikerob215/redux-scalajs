@@ -1,5 +1,7 @@
-name := "redux-scalajs"
+enablePlugins(ScalaJSPlugin)
 
-version := "0.1"
+name := "Redux-Scala.js"
+scalaVersion := "2.12.6" // or any other Scala version >= 2.10.2
 
-scalaVersion := "2.12.6"
+// This is an application with a main method
+scalaJSUseMainModuleInitializer := true
