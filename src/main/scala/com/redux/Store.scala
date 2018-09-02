@@ -39,33 +39,27 @@ class Store(reducer: js.Function2[State, Action, State],
 
 }
 
+trait StoreLiteral extends js.Object {
+  val dispatch: Action => Action
+  val getState: () => State
+  val subscribe: () => Unit
+}
+
 object Store {
-  def apply(reducer: js.Function2[State, Action, State],
-            preLoadedState: State): StoreLiteral =
+  def apply(reducer: ReducerFunction, preLoadedState: State): StoreLiteral =
     storeAsLiteral(new Store(reducer, preLoadedState))
 
-  def apply(reducer: js.Function2[State, Action, State]): StoreLiteral =
+  def apply(reducer: ReducerFunction): StoreLiteral =
     storeAsLiteral(new Store(reducer))
 
   def storeAsLiteral(store: Store): StoreLiteral = {
-    js.Dynamic.literal(
-      dispatch = store.dispatch _,
-      getState = store.getState _,
-      subscribe = store.subscribe _,
-    )
-
-    new StoreLiteral {
-      override val dispatch: Action => Action = (action: Action) =>
-        store.dispatch(action)
-      override def getState(): State = store.getState()
-      override def subscribe(observer: () => Unit): Unit =
-        (listener: js.Function0[Unit]) => store.subscribe(listener)
-    }
+    js.Dynamic
+      .literal(
+        dispatch = store.dispatch _,
+        getState = store.getState _,
+        subscribe = store.subscribe _
+      )
+      .asInstanceOf[StoreLiteral]
   }
 
-  trait StoreLiteral extends js.Object {
-    val dispatch: Action => Action
-    def getState(): State
-    def subscribe(observer: () => Unit): Unit
-  }
 }

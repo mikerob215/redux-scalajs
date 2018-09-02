@@ -1,7 +1,5 @@
-import com.redux.Store.StoreLiteral
-import com.redux.{Action, State, Store}
+import com.redux._
 
-import scala.scalajs.js
 import scala.scalajs.js.annotation.JSExportTopLevel
 
 object Main extends App {
@@ -13,7 +11,7 @@ object Main extends App {
     * @return
     */
   @JSExportTopLevel("createStore")
-  def createStore(reducer: js.Function2[State, Action, State]): StoreLiteral = {
+  def createStore(reducer: ReducerFunction): StoreLiteral = {
     Store(reducer)
   }
 }

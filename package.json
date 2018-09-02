@@ -1,0 +1,15 @@
+{
+  "name": "redux-scalajs-driver",
+  "version": "0.0.1",
+  "description": "Test application to check for full compatibilty with redux",
+  "main": "index.js",
+  "repository": "https://github.com/mikerob215/redux-scalajs.git",
+  "author": "mikerobinson <mikerobinson1@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node src/js-client/store-driver.js"
+  },
+  "dependencies": {
+    "source-map-support": "^0.5.9"
+  }
+}
